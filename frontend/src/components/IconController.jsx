@@ -1,14 +1,16 @@
-import { Heart, Smile } from "lucide-react";
-import React from "react";
+import { Heart } from "lucide-react";
+import React, { useContext } from "react";
 import { Slider } from "@/components/ui/slider";
 import ColorPickerController from "./ColorPickerController";
 import { useState, useEffect } from "react";
+import { UpdateStorageContext } from "@/context/UpdateStorageContext";
 
 const IconController = () => {
   const [color, setColor] = useState("#fff");
   const [size, setSize] = useState(280);
   const [rotate, setRotate] = useState(0);
   const storageValue = JSON.parse(localStorage.getItem("value"));
+  const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
   useEffect(() => {
     const updatedValue = {
@@ -18,7 +20,7 @@ const IconController = () => {
       iconColor: color,
       icon: "Heart",
     };
-
+    setUpdateStorage(updatedValue);
     localStorage.setItem("value", JSON.stringify(updatedValue));
   }, [color, size, rotate]);
 
