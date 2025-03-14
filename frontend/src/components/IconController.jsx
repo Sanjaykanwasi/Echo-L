@@ -4,13 +4,22 @@ import { Slider } from "@/components/ui/slider";
 import ColorPickerController from "./ColorPickerController";
 import { useState, useEffect } from "react";
 import { UpdateStorageContext } from "@/context/UpdateStorageContext";
+import IconsList from "./IconsList";
 
 const IconController = () => {
-  const [color, setColor] = useState("#fff");
-  const [size, setSize] = useState(280);
-  const [rotate, setRotate] = useState(0);
   const storageValue = JSON.parse(localStorage.getItem("value"));
+
+  const [color, setColor] = useState(
+    storageValue ? storageValue?.iconColor : "#fff"
+  );
+  const [size, setSize] = useState(storageValue ? storageValue?.iconSize : 280);
+  const [rotate, setRotate] = useState(
+    storageValue ? storageValue?.iconRotate : 0
+  );
+
   const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
+
+  const [icon, setIcon] = useState(storageValue ? storageValue?.icon : "Heart");
 
   useEffect(() => {
     const updatedValue = {
@@ -18,27 +27,24 @@ const IconController = () => {
       iconSize: size,
       iconRotate: rotate,
       iconColor: color,
-      icon: "Heart",
+      icon: icon,
     };
     setUpdateStorage(updatedValue);
     localStorage.setItem("value", JSON.stringify(updatedValue));
-  }, [color, size, rotate]);
+  }, [color, size, rotate, icon]);
 
   return (
     <div>
       {" "}
       <div>
-        <label className="text-white">Icon</label>
-        <div className="p-3 cursor-pointer bg-purple-400 my-2 rounded-full w-[50px] h-[50px] flex items-center justify-center">
-          <Heart className="text-white" />
-        </div>
+        <IconsList selectedIcon={(icon) => setIcon(icon)} />
         <div className="py-2 ">
           <label className="p-2 flex justify-between text-white items-center">
             Size <span>{size} px</span>
           </label>
           <Slider
             className="cursor-pointer"
-            defaultValue={[280]}
+            defaultValue={[size]}
             onValueChange={(event) => setSize(event[0])}
             max={512}
             step={1}
@@ -52,7 +58,7 @@ const IconController = () => {
 
           <Slider
             className=" cursor-pointer"
-            defaultValue={[0]}
+            defaultValue={[rotate]}
             onValueChange={(event) => setRotate(event[0])}
             max={360}
             step={1}
