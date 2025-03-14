@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Heart, icons } from "lucide-react";
 import { iconList } from "@/constants/icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const IconsList = ({ selectedIcon }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -34,7 +35,7 @@ const IconsList = ({ selectedIcon }) => {
           <Icon name={icon} color={"#000"} size={20} />
         </div>
       </div>
-      <Dialog open={openDialog}>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select Your Favourite Icon</DialogTitle>
