@@ -39,22 +39,23 @@ const IconsList = ({ selectedIcon }) => {
           <DialogHeader>
             <DialogTitle>Select Your Favourite Icon</DialogTitle>
             <DialogDescription>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-auto h-[400px] p-6">
-                {iconList.map((icon, index) => (
-                  <div
-                    className="border p-3 flex rounded-sm items-c  justify-center cursor-pointer"
-                    onClick={() => {
-                      selectedIcon(icon);
-                      setOpenDialog(false);
-                      setIcon(icon);
-                    }}
-                    key={index}
-                  >
-                    <Icon name={icon} color={"#000"} size={20} />
-                  </div>
-                ))}
-              </div>
+              Choose an icon by clicking on it.
             </DialogDescription>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 overflow-auto h-[400px] p-6">
+              {iconList.map((icon, index) => (
+                <div
+                  className="border p-3 flex rounded-sm items-c  justify-center cursor-pointer"
+                  onClick={() => {
+                    selectedIcon(icon);
+                    setOpenDialog(false);
+                    setIcon(icon);
+                  }}
+                  key={index}
+                >
+                  <Icon name={icon} color={"#000"} size={20} />
+                </div>
+              ))}
+            </div>
           </DialogHeader>
         </DialogContent>
       </Dialog>
