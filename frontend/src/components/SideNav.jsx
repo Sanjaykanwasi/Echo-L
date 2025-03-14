@@ -14,11 +14,6 @@ const SideNav = ({ selectedIndex }) => {
       name: "Background",
       icons: Image,
     },
-    {
-      id: 3,
-      name: "Upgrade",
-      icons: Shield,
-    },
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
